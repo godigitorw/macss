@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,23 +12,51 @@ const stats = [
   { value: '5+', label: 'Years Experience' },
 ];
 
-const propertyTypes = ['House', 'Apartment', 'Land', 'Commercial', 'Warehouse', 'Office'];
-
-const locations = [
-  'All Districts',
-  'Gasabo',
-  'Kicukiro',
-  'Nyarugenge',
-  'Rwamagana',
-  'Kayonza',
-  'Musanze',
-];
-
 export default function HeroSection() {
   const router = useRouter();
   const [searchType, setSearchType] = useState<'buy' | 'rent'>('buy');
   const [propertyType, setPropertyType] = useState('');
   const [location, setLocation] = useState('');
+  
+  // Dynamic Data State
+  const [propertyTypes, setPropertyTypes] = useState<string[]>([]);
+  const [locations, setLocations] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch dynamic data on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Fetch property types
+        const typesResponse = await fetch('/api/property-types?active=true');
+        if (typesResponse.ok) {
+          const typesData = await typesResponse.json();
+          // Ensure we extract the names correctly
+          setPropertyTypes(typesData.map((t: any) => t.displayName || t.name));
+        }
+
+        // Fetch properties to get available districts
+        const propertiesResponse = await fetch('/api/properties');
+        if (propertiesResponse.ok) {
+          const properties = await propertiesResponse.json();
+          if (Array.isArray(properties) && properties.length > 0) {
+            // Extract unique districts and sort them
+            const uniqueDistricts = Array.from(new Set(properties.map((p: any) => p.district)))
+              .filter(Boolean)
+              .sort() as string[];
+            setLocations(uniqueDistricts);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching search options:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +69,7 @@ export default function HeroSection() {
       params.set('type', propertyType.toUpperCase());
     }
 
-    if (location && location !== 'All Districts') {
+    if (location) {
       params.set('district', location);
     }
 
@@ -172,6 +200,7 @@ export default function HeroSection() {
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full pl-11 pr-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white text-gray-700 text-sm"
                   >
+                    <option value="">All Districts</option>
                     {locations.map((loc) => (
                       <option key={loc} value={loc}>
                         {loc}
