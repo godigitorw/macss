@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FiSearch, FiMapPin, FiHome, FiDollarSign } from 'react-icons/fi';
 
 const stats = [
@@ -24,6 +25,7 @@ const locations = [
 ];
 
 export default function HeroSection() {
+  const router = useRouter();
   const [searchType, setSearchType] = useState<'buy' | 'rent'>('buy');
   const [propertyType, setPropertyType] = useState('');
   const [location, setLocation] = useState('');
@@ -33,10 +35,17 @@ export default function HeroSection() {
     // Navigate to properties page with filters
     const params = new URLSearchParams({
       status: searchType === 'buy' ? 'FOR_SALE' : 'FOR_RENT',
-      ...(propertyType && { type: propertyType.toLowerCase() }),
-      ...(location && location !== 'All Districts' && { location }),
     });
-    window.location.href = `/properties?${params.toString()}`;
+
+    if (propertyType) {
+      params.set('type', propertyType.toUpperCase());
+    }
+
+    if (location && location !== 'All Districts') {
+      params.set('district', location);
+    }
+
+    router.push(`/properties?${params.toString()}`);
   };
 
   return (
