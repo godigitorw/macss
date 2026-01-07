@@ -26,7 +26,10 @@ export async function GET(request: NextRequest) {
     }
 
     if (district) {
-      where.district = district;
+      where.district = {
+        equals: district,
+        mode: 'insensitive',
+      };
     }
 
     if (minPrice || maxPrice) {
@@ -44,6 +47,8 @@ export async function GET(request: NextRequest) {
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
         { address: { contains: search, mode: 'insensitive' } },
+        { district: { contains: search, mode: 'insensitive' } },
+        { sector: { contains: search, mode: 'insensitive' } },
       ];
     }
 
