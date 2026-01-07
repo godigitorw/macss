@@ -80,7 +80,7 @@ export default function HeroSection() {
               <div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
                   Find <span className="text-primary-400 relative">
-                    Houses for Sale
+                    property for rent and Sale
                     <svg
                       className="absolute -bottom-2 left-0 w-full"
                       viewBox="0 0 200 12"
