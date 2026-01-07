@@ -21,6 +21,10 @@ async function main() {
 
   console.log('Admin user created:', admin.email);
 
+  // Clean up existing properties
+  await prisma.property.deleteMany({});
+  console.log('Cleared existing properties');
+
   // Create sample properties
   const properties = [
     {
@@ -36,11 +40,11 @@ async function main() {
       district: 'Gasabo',
       sector: 'Kacyiru',
       address: 'KG 123 St, Kacyiru',
-      images: ['/images/properties/villa1.jpg', '/images/properties/villa2.jpg'],
+      images: ['https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2671&auto=format&fit=crop', 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2670&auto=format&fit=crop'],
       amenities: ['Swimming Pool', 'Garden', 'Garage', 'Security', 'Generator'],
       contactName: 'MAC SS Real Estate',
-      contactEmail: 'info@macssrealestaterw.com',
-      contactPhone: '+250788308043',
+      contactEmail: 'macssrealestate@gmail.com',
+      contactPhone: '+250 786 703 130',
       featured: true,
       userId: admin.id,
     },
@@ -57,7 +61,7 @@ async function main() {
       district: 'Gasabo',
       sector: 'Kimihurura',
       address: 'KG 456 St, Kimihurura',
-      images: ['/images/properties/apt1.jpg', '/images/properties/apt2.jpg'],
+      images: ['https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2670&auto=format&fit=crop', 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2580&auto=format&fit=crop'],
       amenities: ['Balcony', 'Parking', 'Security', 'Water Tank'],
       contactName: 'MAC SS Real Estate',
       contactEmail: 'info@macssrealestaterw.com',
@@ -76,7 +80,7 @@ async function main() {
       district: 'Nyarugenge',
       sector: 'Nyarugenge',
       address: 'KN 789 St, Downtown',
-      images: ['/images/properties/commercial1.jpg'],
+      images: ['https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop'],
       amenities: ['Parking', 'Security', 'Generator', 'Elevator'],
       contactName: 'MAC SS Real Estate',
       contactEmail: 'info@macssrealestaterw.com',
@@ -97,7 +101,7 @@ async function main() {
       district: 'Gasabo',
       sector: 'Remera',
       address: 'KG 321 St, Remera',
-      images: ['/images/properties/house1.jpg', '/images/properties/house2.jpg'],
+      images: ['https://images.unsplash.com/photo-1600596542815-2495db9dc2c3?q=80&w=2574&auto=format&fit=crop', 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop'],
       amenities: ['Garden', 'Garage', 'Security', 'Water Tank'],
       contactName: 'MAC SS Real Estate',
       contactEmail: 'info@macssrealestaterw.com',
@@ -115,7 +119,7 @@ async function main() {
       district: 'Kicukiro',
       sector: 'Kicukiro',
       address: 'KK 654 St, Kicukiro',
-      images: ['/images/properties/land1.jpg'],
+      images: ['https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2832&auto=format&fit=crop'],
       amenities: ['Electricity', 'Water', 'Road Access'],
       contactName: 'MAC SS Real Estate',
       contactEmail: 'info@macssrealestaterw.com',
@@ -134,7 +138,7 @@ async function main() {
       district: 'Gasabo',
       sector: 'Nyarutarama',
       address: 'KG 987 St, Nyarutarama',
-      images: ['/images/properties/office1.jpg'],
+      images: ['https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2669&auto=format&fit=crop'],
       amenities: ['Parking', 'Security', 'Generator', 'Elevator', 'Conference Room'],
       contactName: 'MAC SS Real Estate',
       contactEmail: 'info@macssrealestaterw.com',

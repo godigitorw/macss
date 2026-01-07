@@ -36,7 +36,7 @@ export default function CTASection() {
                   href={`tel:+${process.env.NEXT_PUBLIC_PHONE}`}
                   className="block text-white text-base font-semibold hover:text-white/80 transition-colors"
                 >
-                  +{process.env.NEXT_PUBLIC_PHONE || '250788308043'}
+                  +{process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}
                 </a>
               </div>
             </div>
@@ -54,7 +54,7 @@ export default function CTASection() {
                   href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                   className="block text-white text-sm font-semibold hover:text-white/80 transition-colors break-all"
                 >
-                  {process.env.NEXT_PUBLIC_EMAIL || 'info@macssrealestaterw.com'}
+                  {process.env.NEXT_PUBLIC_EMAIL || 'macssrealestate@gmail.com'}
                 </a>
               </div>
             </div>

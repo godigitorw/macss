@@ -45,19 +45,19 @@ export default function ContactPage() {
     {
       icon: FiPhone,
       title: 'Phone',
-      details: [`+${process.env.NEXT_PUBLIC_PHONE || '250788308043'}`],
-      link: `tel:+${process.env.NEXT_PUBLIC_PHONE || '250788308043'}`,
+      details: [`+${process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}`],
+      link: `tel:+${process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}`,
     },
     {
       icon: FiMail,
       title: 'Email',
-      details: [process.env.NEXT_PUBLIC_EMAIL || 'info@macssrealestaterw.com'],
-      link: `mailto:${process.env.NEXT_PUBLIC_EMAIL || 'info@macssrealestaterw.com'}`,
+      details: [process.env.NEXT_PUBLIC_EMAIL || 'macssrealestate@gmail.com'],
+      link: `mailto:${process.env.NEXT_PUBLIC_EMAIL || 'macssrealestate@gmail.com'}`,
     },
     {
       icon: FiMapPin,
       title: 'Office Address',
-      details: ['Kigali, Rwanda', 'Gasabo District'],
+      details: ['KG 11 IKAZE HOUSE 3RD FLOOR No 2', 'Kigali, Rwanda'],
       link: null,
     },
     {
@@ -186,7 +186,7 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={handleChange}
                         className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                        placeholder="+250 788 308 043"
+                        placeholder="+250 786 703 130"
                       />
                     </div>
                   </div>
@@ -279,7 +279,7 @@ export default function ContactPage() {
                   <div className="flex items-center justify-center gap-4">
                     {/* Call Icon */}
                     <a
-                      href={`tel:+${process.env.NEXT_PUBLIC_PHONE || '250788308043'}`}
+                      href={`tel:+${process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}`}
                       className="group flex flex-col items-center gap-2"
                     >
                       <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center hover:bg-primary-500 transition-all">
@@ -305,7 +305,7 @@ export default function ContactPage() {
 
                     {/* Email Icon */}
                     <a
-                      href={`mailto:${process.env.NEXT_PUBLIC_EMAIL || 'info@macssrealestaterw.com'}`}
+                      href={`mailto:${process.env.NEXT_PUBLIC_EMAIL || 'macssrealestate@gmail.com'}`}
                       className="group flex flex-col items-center gap-2"
                     >
                       <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-700 transition-all">

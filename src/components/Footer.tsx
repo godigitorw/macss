@@ -136,7 +136,7 @@ export default function Footer() {
                   href={`tel:+${process.env.NEXT_PUBLIC_PHONE}`}
                   className="text-sm hover:text-primary-400 transition-colors"
                 >
-                  +{process.env.NEXT_PUBLIC_PHONE || '250788308043'}
+                  +{process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -145,7 +145,7 @@ export default function Footer() {
                   href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                   className="text-sm hover:text-primary-400 transition-colors"
                 >
-                  {process.env.NEXT_PUBLIC_EMAIL || 'info@macssrealestaterw.com'}
+                  {process.env.NEXT_PUBLIC_EMAIL || 'macssrealestate@gmail.com'}
                 </a>
               </li>
             </ul>

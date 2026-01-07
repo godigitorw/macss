@@ -167,8 +167,8 @@ export const organizationStructuredData = {
   description:
     'Leading real estate agency in Rwanda offering land, houses, apartments, warehouses, and commercial properties for sale and rent.',
   url: APP_URL,
-  telephone: '+250788308043',
-  email: 'info@macssrealestate.rw',
+  telephone: '+250 786 703 130',
+  email: 'macssrealestate@gmail.com',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'KG 11 IKAZE HOUSE 3RD FLOOR No 2',

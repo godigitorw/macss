@@ -271,7 +271,7 @@ export function createPropertyInquiryEmail(data: {
           <div class="footer-brand">MAC SS Real Estate Rwanda</div>
           <p class="footer-text">Professional Property Management</p>
           <p class="footer-text" style="margin-top: 12px;">
-            📞 +250788308043 | 📧 macssrealestate@gmail.com
+            📞 +250 786 703 130 | 📧 macssrealestate@gmail.com
           </p>
         </div>
       </div>
@@ -444,7 +444,7 @@ export function createCustomerConfirmationEmail(data: {
 
           <div class="contact-box">
             <h3>Need Immediate Assistance?</h3>
-            <div class="contact-item"><strong>Phone:</strong> +250788308043</div>
+            <div class="contact-item"><strong>Phone:</strong> +250 786 703 130</div>
             <div class="contact-item"><strong>Email:</strong> macssrealestate@gmail.com</div>
             <div class="contact-item"><strong>Hours:</strong> Mon-Sat, 8:00 AM - 6:00 PM</div>
           </div>
@@ -457,7 +457,7 @@ export function createCustomerConfirmationEmail(data: {
           <div class="footer-brand">MAC SS Real Estate Rwanda</div>
           <p class="footer-text">Your Trusted Partner in Finding the Perfect Property</p>
           <p class="footer-text" style="margin-top: 12px;">
-            📞 +250788308043 | 📧 macssrealestate@gmail.com
+            📞 +250 786 703 130 | 📧 macssrealestate@gmail.com
           </p>
         </div>
       </div>
