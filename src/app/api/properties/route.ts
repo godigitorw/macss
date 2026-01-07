@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET /api/properties - Fetch all properties with filters
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    
+
     const status = searchParams.get('status');
     const type = searchParams.get('type');
     const district = searchParams.get('district');
@@ -133,6 +134,10 @@ export async function POST(request: NextRequest) {
         featured: featured || false,
       },
     });
+
+    // Revalidate paths
+    revalidatePath('/properties');
+    revalidatePath('/admin/properties');
 
     return NextResponse.json(property, { status: 201 });
   } catch (error) {

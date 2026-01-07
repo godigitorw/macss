@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 // GET /api/properties/[id] - Fetch a single property
 export async function GET(
@@ -28,11 +29,12 @@ export async function GET(
       );
     }
 
-    // Increment views
-    await prisma.property.update({
+    // Increment views (non-blocking)
+    // We don't await this to speed up the response
+    prisma.property.update({
       where: { id: params.id },
-      data: { views: property.views + 1 },
-    });
+      data: { views: { increment: 1 } },
+    }).catch(console.error);
 
     return NextResponse.json(property);
   } catch (error) {
@@ -66,6 +68,12 @@ export async function PUT(
       },
     });
 
+    // Revalidate paths to clear cache
+    revalidatePath('/properties');
+    revalidatePath(`/properties/${params.id}`);
+    revalidatePath('/admin/properties');
+    revalidatePath(`/admin/properties/edit/${params.id}`);
+
     return NextResponse.json(property);
   } catch (error) {
     console.error('Error updating property:', error);
@@ -87,6 +95,10 @@ export async function DELETE(
         id: params.id,
       },
     });
+
+    // Revalidate paths
+    revalidatePath('/properties');
+    revalidatePath('/admin/properties');
 
     return NextResponse.json({ message: 'Property deleted successfully' });
   } catch (error) {
