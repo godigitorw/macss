@@ -130,14 +130,22 @@ export default function Footer() {
                   {process.env.NEXT_PUBLIC_ADDRESS || 'KG 11 IKAZE HOUSE 3RD FLOOR No 2'}
                 </span>
               </li>
-              <li className="flex items-center gap-3">
-                <FiPhone className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                <a
-                  href={`tel:+${process.env.NEXT_PUBLIC_PHONE}`}
-                  className="text-sm hover:text-primary-400 transition-colors"
-                >
-                  +{process.env.NEXT_PUBLIC_PHONE || '250 786 703 130'}
-                </a>
+              <li className="flex items-start gap-3">
+                <FiPhone className="w-5 h-5 text-primary-400 flex-shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-1">
+                  <a
+                    href="tel:+250786703130"
+                    className="text-sm hover:text-primary-400 transition-colors"
+                  >
+                    +250 786 703 130
+                  </a>
+                  <a
+                    href="tel:+250788308043"
+                    className="text-sm hover:text-primary-400 transition-colors"
+                  >
+                    +250 788 308 043
+                  </a>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />
@@ -152,7 +160,7 @@ export default function Footer() {
 
             {/* WhatsApp Button */}
             <a
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP}`}
+              href="https://wa.me/250786703130"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium"
