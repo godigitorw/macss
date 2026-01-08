@@ -160,12 +160,7 @@ export default function AdminLoginPage() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gray-50 border-2 border-gray-200 rounded-lg">
-            <p className="text-xs font-semibold text-gray-700 mb-2">Demo Credentials:</p>
-            <p className="text-xs text-gray-600">Email: admin@macssrealestate.rw</p>
-            <p className="text-xs text-gray-600">Password: admin123</p>
-          </div>
+
         </div>
 
         {/* Back to Website */}
