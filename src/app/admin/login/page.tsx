@@ -28,16 +28,29 @@ export default function AdminLoginPage() {
     setIsLoading(true);
     setError('');
 
-    // Simulate authentication
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Simple demo authentication (replace with real auth)
-    if (formData.email === 'admin@macssrealestate.rw' && formData.password === 'admin123') {
-      // Store auth token (in production, use proper auth)
-      localStorage.setItem('adminAuth', 'true');
-      router.push('/admin/dashboard');
-    } else {
-      setError('Invalid email or password');
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store auth token and user data
+        localStorage.setItem('adminAuth', 'true');
+        localStorage.setItem('adminUser', JSON.stringify(data.user));
+        router.push('/admin/dashboard');
+      } else {
+        setError(data.error || 'Login failed');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An error occurred during login');
+    } finally {
       setIsLoading(false);
     }
   };

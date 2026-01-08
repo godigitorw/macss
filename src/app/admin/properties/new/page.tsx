@@ -12,19 +12,14 @@ import 'react-quill/dist/quill.snow.css';
 // Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
-interface PropertyType {
-  id: string;
-  name: string;
-  displayName: string;
-  icon: string | null;
-}
+
 
 export default function AddPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
-  const [propertyTypes, setPropertyTypes] = useState<PropertyType[]>([]);
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -48,26 +43,7 @@ export default function AddPropertyPage() {
 
   const [newAmenity, setNewAmenity] = useState('');
 
-  // Fetch property types
-  useEffect(() => {
-    const fetchPropertyTypes = async () => {
-      try {
-        const response = await fetch('/api/property-types?active=true');
-        if (response.ok) {
-          const data = await response.json();
-          setPropertyTypes(data);
-          // Set first property type as default if available
-          if (data.length > 0) {
-            setFormData(prev => ({ ...prev, type: data[0].name }));
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching property types:', error);
-      }
-    };
 
-    fetchPropertyTypes();
-  }, []);
 
   // Quill editor modules configuration
   const quillModules = useMemo(() => ({
@@ -134,8 +110,28 @@ export default function AddPropertyPage() {
     setLoading(true);
 
     try {
-      // Get user ID from localStorage (in production, this should come from auth)
-      const userId = 'cmiq4g3130000ezbw5pglhfed'; // Admin user ID
+      // Get user ID from localStorage
+      const adminUserStr = localStorage.getItem('adminUser');
+      if (!adminUserStr) {
+        setSuccessMessage('You must be logged in to add a property');
+        setShowSuccessModal(true);
+        setLoading(false);
+        return;
+      }
+
+      const adminUser = JSON.parse(adminUserStr);
+      const userId = adminUser.id;
+
+      // Validate numeric fields
+      const priceVal = parseFloat(formData.price.toString());
+      const areaVal = parseFloat(formData.area.toString());
+
+      if (isNaN(priceVal) || isNaN(areaVal)) {
+        setSuccessMessage('Please enter valid numbers for Price and Area');
+        setShowSuccessModal(true);
+        setLoading(false);
+        return;
+      }
 
       const response = await fetch('/api/properties', {
         method: 'POST',
@@ -144,11 +140,11 @@ export default function AddPropertyPage() {
         },
         body: JSON.stringify({
           ...formData,
-          price: parseFloat(formData.price),
-          bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null,
-          bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null,
-          area: formData.area ? parseFloat(formData.area) : null,
-          parkingSpaces: formData.parkingSpaces ? parseInt(formData.parkingSpaces) : null,
+          price: priceVal,
+          bedrooms: formData.bedrooms ? parseInt(formData.bedrooms.toString()) : null,
+          bathrooms: formData.bathrooms ? parseInt(formData.bathrooms.toString()) : null,
+          area: areaVal,
+          parkingSpaces: formData.parkingSpaces ? parseInt(formData.parkingSpaces.toString()) : null,
           userId,
         }),
       });
@@ -231,15 +227,12 @@ export default function AddPropertyPage() {
                   required
                   className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white"
                 >
-                  {propertyTypes.length === 0 ? (
-                    <option value="">Loading property types...</option>
-                  ) : (
-                    propertyTypes.map((type) => (
-                      <option key={type.id} value={type.name}>
-                        {type.displayName}
-                      </option>
-                    ))
-                  )}
+                  <option value="HOUSE">House</option>
+                  <option value="APARTMENT">Apartment</option>
+                  <option value="LAND">Land</option>
+                  <option value="COMMERCIAL">Commercial</option>
+                  <option value="OFFICE">Office</option>
+                  <option value="WAREHOUSE">Warehouse</option>
                 </select>
               </div>
 
